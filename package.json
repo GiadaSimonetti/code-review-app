@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/GiadaSimonetti/code-review-app/issues"
   },
-  "homepage": "https://github.com/GiadaSimonetti/code-review-app#readme"
+  "homepage": "https://github.com/GiadaSimonetti/code-review-app#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "express": "^4.16.3",
+    "mocha": "^5.2.0"
+  }
 }
