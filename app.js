@@ -4,8 +4,15 @@ let port = 3000;
 app.listen(port);
 console.log('go to port 3000');
 
-app.get('/', function(req, res){
-  
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
+app.get('/', (req, res) => {
+  res.send('Welcome');
+});
+
+app.get('/new', (req, res) => {
+  res.render('new');
 });
 
 module.exports = app;
