@@ -16,12 +16,24 @@ describe('App', () => {
   });
 });
 
+describe('new page', () => {
+  it('', () => {
+    chai.request(app)
+    .get('/new')
+    .end((req, res) => {
+      res.should.have.status(200);
+      res.text.should.contain('Add your code here');
+    });
+  });
+});
+
 describe('Add a new code snippet', () => {
   it('', () => {
     chai.request(app)
     .get('/new')
     .end((req, res) => {
       res.should.have.status(200);
+      res.text.should.contain('Add code');
     });
   });
 });
