@@ -33,7 +33,7 @@ describe('Add a new code snippet', () => {
     .get('/new')
     .end((req, res) => {
       res.should.have.status(200);
-      res.text.should.contain('Add code');
+      res.text.should.contain('Submit');
     });
   });
 });
