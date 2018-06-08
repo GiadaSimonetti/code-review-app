@@ -17,7 +17,7 @@ describe('App', () => {
 });
 
 describe('new page', () => {
-  it('', () => {
+  it('checks the new page status', () => {
     chai.request(app)
     .get('/new')
     .end((req, res) => {
@@ -28,7 +28,7 @@ describe('new page', () => {
 });
 
 describe('Add a new code snippet', () => {
-  it('', () => {
+  it('checks if the submit is in the page', () => {
     chai.request(app)
     .get('/new')
     .end((req, res) => {
