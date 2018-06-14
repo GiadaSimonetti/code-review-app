@@ -1,39 +1,47 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
+let CodeEntry = require('../models/code');
 let should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('App', () => {
-  it('checks the page status', () => {
-    chai.request(app)
+
+describe('Index', () => {
+  let addCode = chai.request.agent(app);
+  let codeEntry = new CodeEntry({
+    content: 'let variable = 0;'
+  });
+
+  // beforeEach((done) => {
+  //   var request = chai.request(app)
+  //   .post('/code')
+  //   .set('content-type', 'application/json')
+  //   .send({
+  //     content: 'let variable = 0;'
+  //   });
+  //   request.end((err, res) => {
+  //     done();
+  //   });
+  // });
+
+  beforeEach((done) => {
+    addCode
+    .post('/code')
+    .send(codeEntry)
+    .end((err, res) => {
+      done();
+    });
+  });
+
+  it('shows the list of code snippet', () => {
+    addCode
     .get('/')
-    .end((req, res) => {
+    .end((err, res) => {
       res.should.have.status(200);
-      res.text.should.contain('Welcome');
+      res.text.should.contain('let variable = 0;');
+      // res.body.should.be.to.deep.equal({});
     });
   });
-});
 
-describe('new page', () => {
-  it('checks the new page status', () => {
-    chai.request(app)
-    .get('/new')
-    .end((req, res) => {
-      res.should.have.status(200);
-      res.text.should.contain('Add your code here');
-    });
-  });
-});
-
-describe('Add a new code snippet', () => {
-  it('checks if the submit is in the page', () => {
-    chai.request(app)
-    .get('/new')
-    .end((req, res) => {
-      res.should.have.status(200);
-      res.text.should.contain('Submit');
-    });
-  });
 });

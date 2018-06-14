@@ -2,21 +2,26 @@ let express = require('express');
 let mongoose = require('mongoose');
 let bodyParser = require('body-parser');
 let app = express();
-let Code = require('./models/code');
+let CodeEntry = require('./models/code');
 mongoose.connect('mongodb://127.0.0.1/code_review');
 mongoose.Promise = global.Promise;
 
-let port = 3000;
-app.listen(port, () => console.log('listening on 3000'));
-
+if(!module.parent) {
+  let port = 3000;
+  app.listen(port, () => console.log('listening on 3000'));
+}
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.send('Welcome');
+  let codeEntry = CodeEntry.find({});
+  codeEntry.exec((err, code) => {
+    if (err) res.send(err);
+    res.render('index', {code: code});
+  });
 });
 
 app.get('/new', (req, res) => {
@@ -24,10 +29,8 @@ app.get('/new', (req, res) => {
 });
 
 app.post('/code', (req, res) => {
-  let newCode = new Code(req.body);
-    console.log(newCode, "CODE OBJECT")
-  newCode.save((err, code) => {
-    console.log(code, "CODE IN SAVE")
+  let newCodeEntry = new CodeEntry(req.body);
+  newCodeEntry.save((err, codeEntry) => {
     if(err) {
       res.send(err);
     } else {
