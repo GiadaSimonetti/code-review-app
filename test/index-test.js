@@ -13,18 +13,6 @@ describe('Index', () => {
     content: 'let variable = 0;'
   });
 
-  // beforeEach((done) => {
-  //   var request = chai.request(app)
-  //   .post('/code')
-  //   .set('content-type', 'application/json')
-  //   .send({
-  //     content: 'let variable = 0;'
-  //   });
-  //   request.end((err, res) => {
-  //     done();
-  //   });
-  // });
-
   beforeEach((done) => {
     addCode
     .post('/code')
@@ -40,7 +28,6 @@ describe('Index', () => {
     .end((err, res) => {
       res.should.have.status(200);
       res.text.should.contain('let variable = 0;');
-      // res.body.should.be.to.deep.equal({});
     });
   });
 
